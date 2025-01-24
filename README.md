@@ -1,13 +1,12 @@
 # Blog AI Agent
-This is an example of creating blog on a topic and running it locally using Ollama, CrewAI and OpenAI
+This is an example of creating a blog post on a specified topic and running it using CrewAI and OpenAI. 
+We will be using multiple agents to generate the output.
 
 ## Prerequisites 
-Download [Ollama](https://ollama.com/) and complete installation in your computer
+You will need [OPENAI API KEY](https://openai.com/index/openai-api/)
 
 Run the following commands in terminal, if not already installed,
 
 ```
-pip install langchain
 pip install crewai
-ollama pull llama2
 ```
