@@ -11,17 +11,15 @@ from langchain_community.tools import DuckDuckGoSearchRun
 #ollama_llm = Ollama(model="llama2")
 
 ollama_llm = LLM(
-        base_url= "http://127.0.0.1:11434/v1",
-        model= "openai/openhermes")
+        base_url= "http://127.0.0.1:11434/v1", # base url of ollama server
+        model= "openai/openhermes")            # specify llm model to run
 
 #from crewai_tools import tool
 from crewai.tools import tool
 @tool("Duck_Duck_Go_Search")
 def ddgsearch(question: str) -> str:
-    """Clear description for what this tool is useful for, your agent will need this information to use it."""
     # Function logic here
     return DuckDuckGoSearchRun().run(question)
-
 
 blog_topic = "AI agents in 2025"
 
@@ -36,8 +34,7 @@ researcher = Agent(
   """,
   verbose=True,            # want to see the thinking behind
   allow_delegation=False,  # Not allowed to ask any of the other roles
-  # tools=[DuckDuckGoSearchRun()],
-  tools=[ddgsearch],        # Is allowed to use the following tools to conduct research
+  tools=[ddgsearch],        # using tools to conduct research
   llm = ollama_llm
 )
 
@@ -49,7 +46,7 @@ writer = Agent(
   backstory="""You are a technical blogger known for your simple yet informative way of explaining. 
   You transform complex concepts into compelling narratives.""",
   verbose=True,            # want to see the thinking behind
-  allow_delegation=True,   # can ask the "researcher" for more information
+  allow_delegation=True,   # can ask the "researcher" for more info
   llm=ollama_llm           # using the local model
 )
 
@@ -72,7 +69,7 @@ task2 = Task(
   The final output will not contain any extra fluff like "Paragraph 1:" or any action the writer should do.""",
 )
 
-# initialize crew to run the tasks
+# instantiate crew to run the tasks
 
 crew = Crew(
   agents=[researcher, writer],
